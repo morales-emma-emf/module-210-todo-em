@@ -1,4 +1,4 @@
-const apiEndpoint = "https://backend210-jl.wonderfulhill-e12b084a.northeurope.azurecontainerapps.io/api/task"; 
+const apiEndpoint = "https://backend210-jl.wonderfulhill-e12b084a.northeurope.azurecontainerapps.io/api/tasks"; 
 
 
 $(document).ready(function () {
