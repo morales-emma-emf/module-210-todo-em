@@ -43,12 +43,18 @@ jobs:
       - name: Attendre la disponibilité du site
         run: sleep 30s  # Attente pour s'assurer que le site est bien en ligne
 
-      - name: Exécuter Lighthouse sur le site déployé
+      - name: Exécuter Lighthouse avec assertions
+        id: lighthouse
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: "https://emmasitetropcool.emmamorales.emf-informatique.ch/"
           uploadArtifacts: true
           temporaryPublicStorage: true
+          assertions: > 
+            {
+              "performance": ["error", {"minScore": 0.80}],
+              "accessibility": ["error", {"minScore": 0.85}]
+            }
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
