@@ -34,14 +34,21 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_OCEAN_0EA0C8A03 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./src/frontend" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "." # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          app_location: "./src/frontend"
+          api_location: ""
+          output_location: "."
+
+      - name: Attendre la disponibilité du site
+        run: sleep 30s  # Attente pour s'assurer que le site est bien en ligne
+
+      - name: Exécuter Lighthouse sur le site déployé
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: "https://emmasitetropcool.emmamorales.emf-informatique.ch/"
+          uploadArtifacts: true
+          temporaryPublicStorage: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
