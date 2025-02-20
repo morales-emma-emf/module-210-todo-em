@@ -1,5 +1,5 @@
 # Utiliser une image Node.js officielle comme image de base
-FROM node:22
+FROM node:16
 # Définir le répertoire de travail à l'intérieur du conteneur
 WORKDIR /usr/src/app
 # Copier le fichier package.json et package-lock.json
